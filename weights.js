@@ -16,15 +16,8 @@ const targetWeights = {
 
 // constants ///////////////////////////////////////////////////////////////////
 
-// available weight plates, per side
-const weights = [
-    { weight: 2.5, count: 1 },
-    { weight: 5, count: 2 },
-    { weight: 10, count: 1 },
-    { weight: 25, count: 1 },
-    { weight: 35, count: 1 },
-    { weight: 45, count: 1 }
-];
+// available weight plates, per side. Not considering available plate count.
+const weights = [45,35,25,10,5,2.5];
 
 const barbellWeight = 45;
 const curlBarWeight = 22;
@@ -110,8 +103,8 @@ const workout = [
 // day is monday, wednesday, or friday
 // week is 1 through 5
 function output(day, week) {
-    console.log(`${day}, week ${week}`);
     const thisWeekReps = getThisWeekReps(week);
+    console.log(`${day}, week ${week}, reps: ${thisWeekReps}`);
     for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
         const thisExercise = workout[iWorkout];
         const thisExerciseFactor = thisExercise.factor || 1;
@@ -126,14 +119,39 @@ function output(day, week) {
             if (!thisTargetWeight) {
                 console.log('Fail, bad exercise.');
             }
-            const thisSetWeight = thisTargetWeight * thisDayFactor * thisExerciseFactor;
-            console.log(`${thisExercise.name}: weight is ${thisSetWeight}`);
+            const thisSetWeightRaw = thisTargetWeight * thisDayFactor * thisExerciseFactor;
+            const thisSetWeight = roundToNearestWeight(thisSetWeightRaw);
+            const thisBarWeight = getBarWeight(thisExercise.exercise);
+            const thisPlateList = getPlateList(thisSetWeight).join(',');
+            console.log(`${thisExercise.name}: weight is ${thisSetWeight}, plates on each side: ${thisPlateList}`);
         }
     }
 }
 
+function roundToNearestWeight(inWeight) {
+    const minChunk = 5;
+    return Math.ceil(inWeight / minChunk) * minChunk;
+}
+
+// for given complete weight, return plates that need to go on each side (i.e. half);.
+function getPlateList(inWeight) {
+    const halfWeight = inWeight / 2;
+    //const weights = [45,35,25,10,5,2.5];
+
+
+    return [1,1]; // TODO;
+}
+
+function getBarWeight(exercise) {
+    if (exercise === 'curl') {
+        return curlBarWeight;
+    } else {
+        return barbellWeight;
+    }
+}
+
 function getThisWeekReps(week) {
-    return week + 7;
+    return +week + 7;
 }
 
 // here is the most ghetto argv processing you will find
