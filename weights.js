@@ -1,6 +1,3 @@
-// displays weights for each exercise that vary per set and day.
-// using this workout: http://forum.bodybuilding.com/showthread.php?t=169172473
-// the specific weights for each set are a bit fiddly.
 
 // target weights (update per cycle) ///////////////////////////////////////////
 
@@ -16,8 +13,8 @@ const targetWeights = {
 
 // constants ///////////////////////////////////////////////////////////////////
 
-// available weight plates, per side, assume sorted descending.
-const weights = [45,35,25,10,5,5,2.5];
+// available weight plates, per side.
+const weights = [45, 35, 25, 10, 5, 5, 2.5];
 
 const barbellWeight = 45;
 const curlBarWeight = 22;
@@ -27,8 +24,6 @@ const dayFactors = {
     wednesday: 0.9,
     friday: 0.8
 };
-
-// workout (doesn't change for long time) //////////////////////////////////////
 
 const workout = [
     {
@@ -100,15 +95,25 @@ const workout = [
 
 // here be code ////////////////////////////////////////////////////////////////
 
-// day is monday, wednesday, or friday
-// week is 1 through 5
+// Day is monday, wednesday, or friday.
+// Week is 1 through 5.
 function output(day, week) {
-    const thisWeekReps = getThisWeekReps(week);
-    console.log(`## ${day}, week ${week}, reps: ${thisWeekReps} ` +
-                '#################################################################################################');
+    const columnWidth = 24;
+    banner();
+    console.log(`## ${day}, week ${week}`);
+    console.log(`## reps: ${getThisWeekReps(week)}`);
+    banner();
+
+    let lastExercise = null;
     for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
         const thisExercise = workout[iWorkout];
-        const thisExerciseName = padStr(thisExercise.name, 30);
+
+        // Draw dividers between different exercises.
+        if (lastExercise !== null && lastExercise.exercise !== thisExercise.exercise) {
+            console.log('---');
+        }
+
+        const thisExerciseName = padStr(thisExercise.name, columnWidth);
         const thisExerciseFactor = thisExercise.factor || 1;
         const thisSetCount = thisExercise.count || 1;
         const thisDayFactor = dayFactors[day];
@@ -121,32 +126,38 @@ function output(day, week) {
             if (!thisTargetWeight) {
                 console.log('Fail, bad exercise.');
             }
-            const thisSetWeightRaw = thisTargetWeight * thisDayFactor * thisExerciseFactor;
-            const thisSetWeight = padStr('' + roundToNearestWeight(thisSetWeightRaw), 20);
+            const thisSetWeight = Math.round(thisTargetWeight * thisDayFactor * thisExerciseFactor);
+            const thisSetWeightStr = padStr(`total weight is: ${thisSetWeight}`, columnWidth);
+
             const thisBarWeight = getBarWeight(thisExercise.exercise);
-            const thisPlateList = getPlateList(thisSetWeight).join(', ');
-            console.log(`${thisExerciseName}\tweight is ${thisSetWeight}\t\tplates on each side:\t${thisPlateList}`);
+            const thisBarWeightStr = padStr(`bar weight is ${thisBarWeight}`, columnWidth);
+
+            const thisPlateWeight = roundToNearestWeight(thisSetWeight - thisBarWeight);
+            const thisPlateList = getPlateList(thisPlateWeight).join(', ');
+            const thisPlateStr = `plates on each side:  ${thisPlateList}`;
+            console.log(`${thisExerciseName} ${thisSetWeightStr} ${thisBarWeightStr} ${thisPlateStr}`);
         }
+        lastExercise = thisExercise;
     }
+
+    banner();
+    console.log('## Done!');
+    banner();
 }
 
+// Rounds to nearest weight we can configure.
+// Since smallest weight is 2.5 and we have to balance, smallest unit is 5.
 function roundToNearestWeight(inWeight) {
-    const minChunk = 5;
-    return Math.ceil(inWeight / minChunk) * minChunk;
+    const minUnit = 5;
+    return Math.ceil(inWeight / minUnit) * minUnit;
 }
 
-function padStr(str, len) {
-    const padding = [];
-    for (let i = 0; i < len - str.length; ++i) {
-        padding.push(' ');
-    }
-    return str + padding.join('');
-}
-
-// for given complete weight, return plates that need to go on each side (i.e. half);.
+// For given complete weight, return plates that need to go on each side (i.e. half).
 function getPlateList(inWeight) {
     let remainingWeight = inWeight / 2;
-    const availWeights = weights.slice();
+    const availWeights = weights.slice().sort((a, b) => {
+        return (+a) - (+b) < 0;
+    });
     const result = [];
     while(availWeights.length > 0 && remainingWeight > 0) {
         const thisWeight = availWeights.shift();
@@ -171,7 +182,23 @@ function getThisWeekReps(week) {
     return +week + 7;
 }
 
-// here is the most ghetto argv processing you will find
+function repeatStr(str, rep) {
+    const result = [];
+    for (let i = 0; i < rep; ++i) {
+        result.push(str);
+    }
+    return result.join('');
+}
+
+function padStr(str, len) {
+    return '' + str + repeatStr(' ', len - str.length);
+}
+
+function banner() {
+    console.log(repeatStr('#', 130));
+}
+
+// Here is the most ghetto argv processing you will find.
 function getArgs(argv) {
     const args = {
         day: 'monday',
