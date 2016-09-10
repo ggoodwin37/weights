@@ -5,13 +5,13 @@
 // target weights (update per cycle) ///////////////////////////////////////////
 
 const targetWeights = {
-    squat: 10,
-    benchPress: 10,
-    row: 10,
-    overheadPress: 10,
-    deadlift: 10,
-    curl: 10,
-    calfRaise: 10
+    squat: 122,
+    benchPress: 118,
+    row: 107,
+    overheadPress: 80,
+    deadlift: 124,
+    curl: 47,
+    calfRaise: 124
 };
 
 // constants ///////////////////////////////////////////////////////////////////
@@ -105,10 +105,12 @@ const workout = [
     }
 ];
 
+// here be code ////////////////////////////////////////////////////////////////
+
 // day is monday, wednesday, or friday
 // week is 1 through 5
 function output(day, week) {
-    console.log(`${day}`);
+    console.log(`${day}, week ${week}`);
     const thisWeekReps = getThisWeekReps(week);
     for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
         const thisExercise = workout[iWorkout];
@@ -129,8 +131,27 @@ function output(day, week) {
         }
     }
 }
+
 function getThisWeekReps(week) {
     return week + 7;
 }
 
-output('monday', 1);
+// here is the most ghetto argv processing you will find
+function getArgs(argv) {
+    const args = {
+        day: 'monday',
+        week: 1
+    };
+    argv.forEach((val, index, array) => {
+        if (val === '-day') {
+            args['day'] = array[index + 1] || 'monday';
+        }
+        if (val === '-week') {
+            args['week'] = array[index + 1] || 1;
+        }
+    });
+    return args;
+}
+
+const args = getArgs(process.argv);
+output(args['day'], args['week']);
