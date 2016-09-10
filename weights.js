@@ -14,7 +14,7 @@ const targetWeights = {
 // constants ///////////////////////////////////////////////////////////////////
 
 // available weight plates, per side.
-const weights = [45, 35, 25, 10, 5, 5, 2.5];
+const allAvailablePlates = [45, 35, 25, 10, 5, 5, 2.5];
 
 const barbellWeight = 45;
 const curlBarWeight = 22;
@@ -25,6 +25,7 @@ const dayFactors = {
     friday: 0.8
 };
 
+// TODO: probably just generate the name.
 const workout = [
     {
         name: 'Squats (1/4)',
@@ -155,12 +156,12 @@ function roundToNearestWeight(inWeight) {
 // For given complete weight, return plates that need to go on each side (i.e. half).
 function getPlateList(inWeight) {
     let remainingWeight = inWeight / 2;
-    const availWeights = weights.slice().sort((a, b) => {
+    const availablePlates = allAvailablePlates.slice().sort((a, b) => {
         return (+a) - (+b) < 0;
     });
     const result = [];
-    while(availWeights.length > 0 && remainingWeight > 0) {
-        const thisWeight = availWeights.shift();
+    while(availablePlates.length > 0 && remainingWeight > 0) {
+        const thisWeight = availablePlates.shift();
         if (remainingWeight >= thisWeight) {
             remainingWeight -= thisWeight;
             result.push(thisWeight);
