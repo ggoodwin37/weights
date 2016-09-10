@@ -104,9 +104,11 @@ const workout = [
 // week is 1 through 5
 function output(day, week) {
     const thisWeekReps = getThisWeekReps(week);
-    console.log(`## ${day}, week ${week}, reps: ${thisWeekReps} ########################################################`);
+    console.log(`## ${day}, week ${week}, reps: ${thisWeekReps} ` +
+                '#################################################################################################');
     for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
         const thisExercise = workout[iWorkout];
+        const thisExerciseName = padStr(thisExercise.name, 30);
         const thisExerciseFactor = thisExercise.factor || 1;
         const thisSetCount = thisExercise.count || 1;
         const thisDayFactor = dayFactors[day];
@@ -120,10 +122,10 @@ function output(day, week) {
                 console.log('Fail, bad exercise.');
             }
             const thisSetWeightRaw = thisTargetWeight * thisDayFactor * thisExerciseFactor;
-            const thisSetWeight = roundToNearestWeight(thisSetWeightRaw);
+            const thisSetWeight = padStr('' + roundToNearestWeight(thisSetWeightRaw), 20);
             const thisBarWeight = getBarWeight(thisExercise.exercise);
-            const thisPlateList = getPlateList(thisSetWeight).join(',');
-            console.log(`${thisExercise.name}: weight is ${thisSetWeight}, plates on each side: ${thisPlateList}`);
+            const thisPlateList = getPlateList(thisSetWeight).join(', ');
+            console.log(`${thisExerciseName}\tweight is ${thisSetWeight}\t\tplates on each side:\t${thisPlateList}`);
         }
     }
 }
@@ -131,6 +133,14 @@ function output(day, week) {
 function roundToNearestWeight(inWeight) {
     const minChunk = 5;
     return Math.ceil(inWeight / minChunk) * minChunk;
+}
+
+function padStr(str, len) {
+    const padding = [];
+    for (let i = 0; i < len - str.length; ++i) {
+        padding.push(' ');
+    }
+    return str + padding.join('');
 }
 
 // for given complete weight, return plates that need to go on each side (i.e. half);.
