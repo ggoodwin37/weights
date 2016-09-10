@@ -16,8 +16,8 @@ const targetWeights = {
 
 // constants ///////////////////////////////////////////////////////////////////
 
-// available weight plates, per side. Not considering available plate count.
-const weights = [45,35,25,10,5,2.5];
+// available weight plates, per side, assume sorted descending.
+const weights = [45,35,25,10,5,5,2.5];
 
 const barbellWeight = 45;
 const curlBarWeight = 22;
@@ -104,7 +104,7 @@ const workout = [
 // week is 1 through 5
 function output(day, week) {
     const thisWeekReps = getThisWeekReps(week);
-    console.log(`${day}, week ${week}, reps: ${thisWeekReps}`);
+    console.log(`## ${day}, week ${week}, reps: ${thisWeekReps} ########################################################`);
     for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
         const thisExercise = workout[iWorkout];
         const thisExerciseFactor = thisExercise.factor || 1;
@@ -135,11 +135,18 @@ function roundToNearestWeight(inWeight) {
 
 // for given complete weight, return plates that need to go on each side (i.e. half);.
 function getPlateList(inWeight) {
-    const halfWeight = inWeight / 2;
-    //const weights = [45,35,25,10,5,2.5];
+    let remainingWeight = inWeight / 2;
+    const availWeights = weights.slice();
+    const result = [];
+    while(availWeights.length > 0 && remainingWeight > 0) {
+        const thisWeight = availWeights.shift();
+        if (remainingWeight >= thisWeight) {
+            remainingWeight -= thisWeight;
+            result.push(thisWeight);
+        }
+    }
 
-
-    return [1,1]; // TODO;
+    return result.length > 0 ? result : ['no plates'];
 }
 
 function getBarWeight(exercise) {
