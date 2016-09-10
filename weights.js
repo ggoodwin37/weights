@@ -14,7 +14,7 @@ const targetWeights = {
     calfRaise: 10
 };
 
-// weight constants ////////////////////////////////////////////////////////////
+// constants ///////////////////////////////////////////////////////////////////
 
 // available weight plates, per side
 const weights = [
@@ -28,6 +28,12 @@ const weights = [
 
 const barbellWeight = 45;
 const curlBarWeight = 22;
+
+const dayFactors = {
+    monday: 1.0,
+    wednesday: 0.9,
+    friday: 0.8
+};
 
 // workout (doesn't change for long time) //////////////////////////////////////
 
@@ -99,3 +105,32 @@ const workout = [
     }
 ];
 
+// day is monday, wednesday, or friday
+// week is 1 through 5
+function output(day, week) {
+    console.log(`${day}`);
+    const thisWeekReps = getThisWeekReps(week);
+    for(let iWorkout = 0; iWorkout < workout.length; ++iWorkout) {
+        const thisExercise = workout[iWorkout];
+        const thisExerciseFactor = thisExercise.factor || 1;
+        const thisSetCount = thisExercise.count || 1;
+        const thisDayFactor = dayFactors[day];
+        if (!thisDayFactor) {
+            console.log('Fail, bad day.');
+            return;
+        }
+        for(let iSet = 0; iSet < thisSetCount; ++iSet) {
+            const thisTargetWeight = targetWeights[thisExercise.exercise];
+            if (!thisTargetWeight) {
+                console.log('Fail, bad exercise.');
+            }
+            const thisSetWeight = thisTargetWeight * thisDayFactor * thisExerciseFactor;
+            console.log(`${thisExercise.name}: weight is ${thisSetWeight}`);
+        }
+    }
+}
+function getThisWeekReps(week) {
+    return week + 7;
+}
+
+output('monday', 1);
