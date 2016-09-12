@@ -2,13 +2,13 @@
 // target weights (update per cycle) ///////////////////////////////////////////
 
 const targetWeights = {
-    squat: 122,
-    benchPress: 118,
-    row: 107,
+    squat: 129,
+    benchPress: 124,
+    row: 116,
     overheadPress: 80,
-    deadlift: 124,
-    curl: 47,
-    calfRaise: 124
+    deadlift: 129,
+    curl: 57,
+    calfRaise: 129
 };
 
 // constants ///////////////////////////////////////////////////////////////////
