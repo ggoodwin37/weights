@@ -80,6 +80,18 @@ const workout = [
     }
 ];
 
+// some notes about rack config per exercise.
+// nft means n holes from top, counting the occupied hole. nfb from bottom.
+const exerciseNotes = {
+    squat: 'pegs 3ft (reverse?), bars 5fb.',
+    benchPress: 'pegs 8fb, bars 4fb, bench all the way back.',
+    row: 'pegs 4fb (just use bars from prev).',
+    overheadPress: 'pegs 4ft.',
+    deadlift: 'pegs 4fb.',
+    curl: '',
+    calfRaise: 'pegs 4ft.'
+};
+
 // here be code ////////////////////////////////////////////////////////////////
 
 // Day is monday, wednesday, or friday.
@@ -117,12 +129,20 @@ function output(day, week) {
             const thisSetWeightStr = padStr(`total weight is: ${thisSetWeight}`, columnWidth);
 
             const thisBarWeight = getBarWeight(thisExercise.exercise);
-            const thisBarWeightStr = padStr(`bar weight is ${thisBarWeight}`, columnWidth);
 
             const thisPlateWeight = roundToNearestWeight(thisSetWeight - thisBarWeight);
             const thisPlateList = getPlateList(thisPlateWeight).join(', ');
-            const thisPlateStr = `plates on each side:  ${thisPlateList}`;
-            console.log(`${thisExerciseName} ${thisSetWeightStr} ${thisBarWeightStr} ${thisPlateStr}`);
+            const thisPlateStr = padStr(`plates on each side:  ${thisPlateList}`, columnWidth * 1.5);
+
+            // some stuff only gets logged on the first row of each exercise
+            let optFirstLineStr = '';
+            const isFirstRow = (iSet === 0) && (!lastExercise || lastExercise.exercise !== thisExercise.exercise);
+            if (isFirstRow) {
+                const thisBarWeightStr = `bar weight is ${thisBarWeight}.`;
+                const thisExerciseNotes = exerciseNotes[thisExercise.exercise] || '';
+                optFirstLineStr = `${thisBarWeightStr} ${thisExerciseNotes}`;
+            }
+            console.log(`${thisExerciseName} ${thisSetWeightStr} ${thisPlateStr} ${optFirstLineStr}`);
         }
         lastExercise = thisExercise;
     }
