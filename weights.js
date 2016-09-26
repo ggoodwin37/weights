@@ -180,7 +180,7 @@ function getPlateList(inWeight) {
 function getExerciseName(exercise) {
     let factorStr = '(?)';
     if (!exercise.factor || exercise.factor === 1) factorStr = '(full)';
-    if (exercise.factor === 0.5) factorStr = '(1/2)';
+    else if (exercise.factor === 0.5) factorStr = '(1/2)';
     else if (exercise.factor === 0.25) factorStr = '(1/4)';
     return `${exercise.exercise} ${factorStr}`;
 }
