@@ -113,6 +113,9 @@ function output(day, week) {
     banner();
     console.log(`## ${day}, week ${week}`);
     console.log(`## reps: ${getThisWeekReps(week)}`);
+    if (isTestDay(day, week)) {
+        console.log(`## TEST DAY!!!! 1:30 rest between work sets. Good luck.`);
+    }
     banner();
 
     let lastExercise = null;
@@ -207,6 +210,10 @@ function getBarWeight(exercise) {
 
 function getThisWeekReps(week) {
     return +week + 7;
+}
+
+function isTestDay(day, week) {
+    return (day == 'monday') && (week == 5);
 }
 
 function repeatStr(str, rep) {
