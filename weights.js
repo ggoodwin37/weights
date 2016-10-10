@@ -1,7 +1,7 @@
 
 // target weights (update per cycle) ///////////////////////////////////////////
 
-const targetWeights = {
+const cycle1TargetWeights = {
     squat: 129,
     benchPress: 124,
     row: 116,
@@ -10,6 +10,18 @@ const targetWeights = {
     curl: 57,
     calfRaise: 129
 };
+
+const cycle2TargetWeights = {
+    squat: 142,
+    benchPress: 137,
+    row: 128,
+    overheadPress: 88,
+    deadlift: 142,
+    curl: 63,
+    calfRaise: 142
+};
+
+const targetWeights = cycle1TargetWeights;
 
 // constants ///////////////////////////////////////////////////////////////////
 
@@ -83,7 +95,7 @@ const workout = [
 // some notes about rack config per exercise.
 // nft means n holes from top, counting the occupied hole. nfb from bottom.
 const exerciseNotes = {
-    squat: 'pegs 3ft (reverse?), bars 5fb.',
+    squat: 'pegs 3ft (reverse?), bars 4fb.',
     benchPress: 'pegs 8fb, bars 4fb, bench all the way back.',
     row: 'pegs 4fb (just use bars from prev).',
     overheadPress: 'pegs 4ft.',
