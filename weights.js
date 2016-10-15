@@ -1,27 +1,29 @@
 
 // target weights (update per cycle) ///////////////////////////////////////////
 
-const cycle1TargetWeights = {
-    squat: 129,
-    benchPress: 124,
-    row: 116,
-    overheadPress: 80,
-    deadlift: 129,
-    curl: 57,
-    calfRaise: 129
+const currentCycle = 'cycle2';
+const targetWeightsByCycle = {
+    cycle1: {
+        squat: 129,
+        benchPress: 124,
+        row: 116,
+        overheadPress: 80,
+        deadlift: 129,
+        curl: 57,
+        calfRaise: 129
+    },
+    cycle2: {
+        squat: 142,
+        benchPress: 137,
+        row: 128,
+        overheadPress: 88,
+        deadlift: 142,
+        curl: 63,
+        calfRaise: 142
+    }
 };
 
-const cycle2TargetWeights = {
-    squat: 142,
-    benchPress: 137,
-    row: 128,
-    overheadPress: 88,
-    deadlift: 142,
-    curl: 63,
-    calfRaise: 142
-};
-
-const targetWeights = cycle2TargetWeights;
+const targetWeights = targetWeightsByCycle[currentCycle];
 
 // constants ///////////////////////////////////////////////////////////////////
 
@@ -111,7 +113,7 @@ const exerciseNotes = {
 function output(day, week) {
     const columnWidth = 24;
     banner();
-    console.log(`## ${day}, week ${week}`);
+    console.log(`## ${currentCycle} ${day}, week ${week}`);
     console.log(`## reps: ${getThisWeekReps(week)}`);
     if (isTestDay(day, week)) {
         console.log(`## TEST DAY!!!! 1:30 rest between work sets. Good luck.`);
