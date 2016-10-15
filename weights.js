@@ -21,7 +21,7 @@ const cycle2TargetWeights = {
     calfRaise: 142
 };
 
-const targetWeights = cycle1TargetWeights;
+const targetWeights = cycle2TargetWeights;
 
 // constants ///////////////////////////////////////////////////////////////////
 
