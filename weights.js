@@ -40,58 +40,19 @@ const dayFactors = {
 };
 
 const workout = [
-    {
-        exercise: 'squat',
-        factor: 0.25
-    },
-    {
-        exercise: 'squat',
-        factor: 0.5
-    },
-    {
-        exercise: 'squat',
-        count: 2
-    },
-    {
-        exercise: 'benchPress',
-        factor: 0.25
-    },
-    {
-        exercise: 'benchPress',
-        factor: 0.5
-    },
-    {
-        exercise: 'benchPress',
-        count: 2
-    },
-    {
-        exercise: 'row',
-        factor: 0.25
-    },
-    {
-        exercise: 'row',
-        factor: 0.5
-    },
-    {
-        exercise: 'row',
-        count: 2
-    },
-    {
-        exercise: 'overheadPress',
-        count: 2
-    },
-    {
-        exercise: 'deadlift',
-        count: 2
-    },
-    {
-        exercise: 'curl',
-        count: 2
-    },
-    {
-        exercise: 'calfRaise',
-        count: 2
-    }
+    { exercise: 'squat', factor: 0.25 },
+    { exercise: 'squat', factor: 0.5 },
+    { exercise: 'squat', count: 2 },
+    { exercise: 'benchPress', factor: 0.25 },
+    { exercise: 'benchPress', factor: 0.5 },
+    { exercise: 'benchPress', count: 2 },
+    { exercise: 'row', factor: 0.25 },
+    { exercise: 'row', factor: 0.5 },
+    { exercise: 'row', count: 2 },
+    { exercise: 'overheadPress', count: 2 },
+    { exercise: 'deadlift', count: 2 },
+    { exercise: 'curl', count: 2 },
+    { exercise: 'calfRaise', count: 2 }
 ];
 
 // some notes about rack config per exercise.
