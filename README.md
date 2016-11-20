@@ -8,4 +8,4 @@ Easier to write code than learn google sheets :)
 Displays weights for each exercise that vary per set and day, based on [this workout](http://forum.bodybuilding.com/showthread.php?t=169172473). This outputs the plate configuration needed for each exercise/set/day.
 
 Usage: `node weights.js -day <day> -week <week>`
-Where `day` is one of `monday, wednesday, friday` and week is 1 through 5.
+Where `day` is one of `monday, wednesday, friday` (or `1, 2, 3`) and week is 1 through 5.

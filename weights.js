@@ -108,9 +108,10 @@ const exerciseNotes = {
 
 // here be code ////////////////////////////////////////////////////////////////
 
-// Day is monday, wednesday, or friday.
+// Day is monday, wednesday, or friday (or 1, 2, 3)
 // Week is 1 through 5.
 function output(day, week) {
+    day = normalizeDay(day);
     const columnWidth = 24;
     banner();
     console.log(`## ${currentCycle} ${day}, week ${week}`);
@@ -192,6 +193,13 @@ function getPlateList(inWeight) {
     }
 
     return result.length > 0 ? result : ['no plates'];
+}
+
+function normalizeDay(inputDay) {
+    if (inputDay === '1' || inputDay.toLowerCase() === 'monday') return 'monday';
+    if (inputDay === '2' || inputDay.toLowerCase() === 'wednesday') return 'wednesday';
+    if (inputDay === '3' || inputDay.toLowerCase() === 'friday') return 'friday';
+    return 'unknown';
 }
 
 function getExerciseName(exercise) {
