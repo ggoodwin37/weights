@@ -20,6 +20,16 @@ const targetWeightsByCycle = {
         deadlift: 142,
         curl: 63,
         calfRaise: 142
+    },
+    // missed full set on bench and overhead press
+    cycle3: {
+        squat: 157,
+        benchPress: 137,
+        row: 141,
+        overheadPress: 88,
+        deadlift: 157,
+        curl: 70,
+        calfRaise: 157
     }
 };
 
@@ -105,7 +115,7 @@ function output(day, week) {
                 console.log('Fail, bad exercise.');
             }
             const thisSetWeight = Math.round(thisTargetWeight * thisDayFactor * thisExerciseFactor);
-            const thisSetWeightStr = padStr(`total weight is: ${thisSetWeight}`, columnWidth);
+            const thisSetWeightStr = padStr(`target weight is: ${thisSetWeight}`, columnWidth);
 
             const thisBarWeight = getBarWeight(thisExercise.exercise);
 
