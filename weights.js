@@ -1,7 +1,7 @@
 
-// target weights (update per cycle) ///////////////////////////////////////////
+// target weights per cycle ////////////////////////////////////////////////////
 
-const currentCycle = 'cycle2';
+const currentCycle = 'cycle4';
 const targetWeightsByCycle = {
     cycle1: {
         squat: 129,
@@ -30,6 +30,15 @@ const targetWeightsByCycle = {
         deadlift: 157,
         curl: 70,
         calfRaise: 157
+    },
+    cycle4: {
+        squat: 173,
+        benchPress: 151,
+        row: 156,
+        overheadPress: 97,
+        deadlift: 173,
+        curl: 77,
+        calfRaise: 173
     }
 };
 
