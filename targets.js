@@ -1,4 +1,4 @@
-const currentCycle = 'cycle5';
+const currentCycle = 'cycle6';
 
 const targetWeightsByCycle = {
     cycle1: {
@@ -38,14 +38,25 @@ const targetWeightsByCycle = {
         curl: 77,
         calfRaise: 173
     },
+    // reduced row target by 20% mid-cycle cuz my fuckin shoulder hurts
     cycle5: {
         squat: 190,
         benchPress: 166,
-        row: 172,
+        row: 138,
         overheadPress: 107,
         deadlift: 190,
         curl: 85,
         calfRaise: 190
+    },
+    // missed bench and curls, and going slow on shoulder (5% increase)
+    cycle6: {
+        squat: 209,
+        benchPress: 166,
+        row: 145,
+        overheadPress: 118,
+        deadlift: 209,
+        curl: 85,
+        calfRaise: 209
     }
 };
 
