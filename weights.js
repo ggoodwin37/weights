@@ -130,6 +130,7 @@ function getPlateList(inWeight) {
         }
     }
 
+    if (remainingWeight > 0) return ['MAXXED OUTTTTTT!!!'];
     return result.length > 0 ? result : ['no plates'];
 }
 

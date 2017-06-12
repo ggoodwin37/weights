@@ -1,4 +1,4 @@
-const currentCycle = 'cycle6';
+const currentCycle = 'cycle8';
 
 const targetWeightsByCycle = {
     cycle1: {
@@ -57,6 +57,26 @@ const targetWeightsByCycle = {
         deadlift: 209,
         curl: 85,
         calfRaise: 209
+    },
+    // bench, overhead, curl all failed, slow on shoulder
+    cycle7: {
+        squat: 230,
+        benchPress: 166,
+        row: 152,
+        overheadPress: 118,
+        deadlift: 230,
+        curl: 85,
+        calfRaise: 230
+    },
+    // bench, overhead failed
+    cycle8: {
+        squat: 253,
+        benchPress: 166,
+        row: 160,
+        overheadPress: 118,
+        deadlift: 253,
+        curl: 94,
+        calfRaise: 253
     }
 };
 
