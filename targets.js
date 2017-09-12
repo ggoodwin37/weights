@@ -75,8 +75,18 @@ const targetWeightsByCycle = {
         row: 160,
         overheadPress: 118,
         deadlift: 253,
-        curl: 94,
+        curl: 85,//94,  // getting sore forearms, reducing by 10%
         calfRaise: 253
+    },
+    // all passed, but bench and overhead were weenie'd so leave targets the same.
+    cycle9: {
+        squat: 278,
+        benchPress: 166,
+        row: 176,
+        overheadPress: 118,
+        deadlift: 278,
+        curl: 94,
+        calfRaise: 278
     }
 };
 

@@ -10,6 +10,9 @@ const allAvailablePlates = [45, 35, 25, 10, 5, 5, 2.5];
 const barbellWeight = 45;
 const curlBarWeight = 22;
 
+// weenie mode lets you tone down certain exercises e.g. if you feel an injury comin on
+const weenieFactor = 0.85;
+
 const dayFactors = {
     monday: 1.0,
     wednesday: 0.9,
@@ -22,11 +25,11 @@ const workout = [
     { exercise: 'squat', count: 2 },
     { exercise: 'benchPress', factor: 0.25 },
     { exercise: 'benchPress', factor: 0.5 },
-    { exercise: 'benchPress', count: 2 },
+    { exercise: 'benchPress', count: 2, weenieMode: true },
     { exercise: 'row', factor: 0.25 },
     { exercise: 'row', factor: 0.5 },
     { exercise: 'row', count: 2 },
-    { exercise: 'overheadPress', count: 2 },
+    { exercise: 'overheadPress', count: 2, weenieMode: true },
     { exercise: 'deadlift', count: 2 },
     { exercise: 'curl', count: 2 },
     { exercise: 'calfRaise', count: 2 }
@@ -70,6 +73,7 @@ function output(day, week) {
 
         const thisExerciseName = padStr(getExerciseName(thisExercise), columnWidth);
         const thisExerciseFactor = thisExercise.factor || 1;
+        const thisWeenieFactor = thisExercise.weenieMode ? weenieFactor : 1;
         const thisSetCount = thisExercise.count || 1;
         const thisDayFactor = dayFactors[day];
         if (!thisDayFactor) {
@@ -81,7 +85,7 @@ function output(day, week) {
             if (!thisTargetWeight) {
                 console.log('Fail, bad exercise.');
             }
-            const thisSetWeight = Math.round(thisTargetWeight * thisDayFactor * thisExerciseFactor);
+            const thisSetWeight = Math.round(thisTargetWeight * thisDayFactor * thisExerciseFactor * thisWeenieFactor);
             const thisSetWeightStr = padStr(`target weight is: ${thisSetWeight}`, columnWidth);
 
             const thisBarWeight = getBarWeight(thisExercise.exercise);
@@ -146,7 +150,8 @@ function getExerciseName(exercise) {
     if (!exercise.factor || exercise.factor === 1) factorStr = '(full)';
     else if (exercise.factor === 0.5) factorStr = '(1/2)';
     else if (exercise.factor === 0.25) factorStr = '(1/4)';
-    return `${exercise.exercise} ${factorStr}`;
+    let weenieStr = exercise.weenieMode ? ' WEENIE!!' : '';
+    return `${exercise.exercise} ${factorStr}${weenieStr}`;
 }
 
 function getBarWeight(exercise) {
