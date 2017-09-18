@@ -1,4 +1,4 @@
-const currentCycle = 'cycle8';
+const currentCycle = 'cycle9';
 
 const targetWeightsByCycle = {
     cycle1: {
