@@ -1,4 +1,4 @@
-const currentCycle = 'cycle9';
+const currentCycle = 'cycle10';
 
 const targetWeightsByCycle = {
     cycle1: {
@@ -87,7 +87,17 @@ const targetWeightsByCycle = {
         deadlift: 278,
         curl: 94,
         calfRaise: 278
-    }
+    },
+    // adjusting weights downward a bit to avoid injury, no more day factors.
+    cycle10: {
+        squat: 225,
+        benchPress: 115,
+        row: 145,
+        overheadPress: 80,
+        deadlift: 225,
+        curl: 75,
+        calfRaise: 225
+    },
 };
 
 module.exports = { currentCycle: currentCycle, targetWeightsByCycle: targetWeightsByCycle };

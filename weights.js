@@ -25,11 +25,11 @@ const workout = [
     { exercise: 'squat', count: 2 },
     { exercise: 'benchPress', factor: 0.25 },
     { exercise: 'benchPress', factor: 0.5 },
-    { exercise: 'benchPress', count: 2, weenieMode: true },
+    { exercise: 'benchPress', count: 2 },
     { exercise: 'row', factor: 0.25 },
     { exercise: 'row', factor: 0.5 },
     { exercise: 'row', count: 2 },
-    { exercise: 'overheadPress', count: 2, weenieMode: true },
+    { exercise: 'overheadPress', count: 2 },
     { exercise: 'deadlift', count: 2 },
     { exercise: 'curl', count: 2 },
     { exercise: 'calfRaise', count: 2 }
@@ -163,7 +163,8 @@ function getBarWeight(exercise) {
 }
 
 function getThisWeekReps(week) {
-    return +week + 7;
+    return '12 (or to failure)';
+    //return +week + 7;
 }
 
 function isTestDay(day, week) {
